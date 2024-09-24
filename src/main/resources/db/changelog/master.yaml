@@ -1,0 +1,188 @@
+databaseChangeLog:
+- changeSet:
+    id: 1727113556131-1
+    author: Administrator (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: maintenances_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: date
+            type: date
+        - column:
+            name: mileage
+            type: INTEGER
+        tableName: maintenances
+- changeSet:
+    id: 1727113556131-2
+    author: Administrator (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: operation_types_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: name
+            type: VARCHAR(255)
+        - column:
+            name: resource
+            type: INTEGER
+        - column:
+            name: status
+            type: VARCHAR(255)
+        tableName: operation_types
+- changeSet:
+    id: 1727113556131-3
+    author: Administrator (generated)
+    changes:
+    - createTable:
+        columns:
+        - column:
+            autoIncrement: true
+            constraints:
+              nullable: false
+              primaryKey: true
+              primaryKeyName: operations_pkey
+            name: id
+            type: BIGINT
+        - column:
+            name: description
+            type: VARCHAR(255)
+        - column:
+            name: maintenance_id
+            type: BIGINT
+        - column:
+            name: type_id
+            type: BIGINT
+        tableName: operations
+- changeSet:
+    id: 1727113556131-4
+    author: Administrator (generated)
+    changes:
+    - loadData:
+        columns:
+        - column:
+            header: id
+            name: id
+            type: NUMERIC
+        - column:
+            header: description
+            name: description
+            type: STRING
+        - column:
+            header: date
+            name: date
+            type: DATE
+        - column:
+            header: mileage
+            name: mileage
+            type: NUMERIC
+        commentLineStartsWith: '#'
+        encoding: UTF-8
+        file: db/changelog/data/maintenances.csv
+        quotchar: '"'
+        separator: ','
+        tableName: maintenances
+- changeSet:
+    id: 1727113556131-5
+    author: Administrator (generated)
+    changes:
+    - loadData:
+        columns:
+        - column:
+            header: id
+            name: id
+            type: NUMERIC
+        - column:
+            header: name
+            name: name
+            type: STRING
+        - column:
+            header: resource
+            name: resource
+            type: NUMERIC
+        - column:
+            header: status
+            name: status
+            type: STRING
+        commentLineStartsWith: '#'
+        encoding: UTF-8
+        file: db/changelog/data/operation_types.csv
+        quotchar: '"'
+        separator: ','
+        tableName: operation_types
+- changeSet:
+    id: 1727113556131-6
+    author: Administrator (generated)
+    changes:
+    - loadData:
+        columns:
+        - column:
+            header: id
+            name: id
+            type: NUMERIC
+        - column:
+            header: description
+            name: description
+            type: STRING
+        - column:
+            header: maintenance_id
+            name: maintenance_id
+            type: NUMERIC
+        - column:
+            header: type_id
+            name: type_id
+            type: NUMERIC
+        commentLineStartsWith: '#'
+        encoding: UTF-8
+        file: db/changelog/data/operations.csv
+        quotchar: '"'
+        separator: ','
+        tableName: operations
+- changeSet:
+    id: 1727113556131-7
+    author: Administrator (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: type_id
+        baseTableName: operations
+        constraintName: fk6rg78f60dc4nectbnv42j2hnn
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: operation_types
+        validate: true
+- changeSet:
+    id: 1727113556131-8
+    author: Administrator (generated)
+    changes:
+    - addForeignKeyConstraint:
+        baseColumnNames: maintenance_id
+        baseTableName: operations
+        constraintName: fkjyw8ncrj05gkv4dx4lf28hx6x
+        deferrable: false
+        initiallyDeferred: false
+        onDelete: NO ACTION
+        onUpdate: NO ACTION
+        referencedColumnNames: id
+        referencedTableName: maintenances
+        validate: true
+

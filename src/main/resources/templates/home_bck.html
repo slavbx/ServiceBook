@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>Сервисная книга</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <table class="table table-hover">
+        <thead>
+        <tr>
+            <th>Объект обслуживания</th>
+            <th>Периодичность</th>
+            <th>Статус</th>
+            <th>Действия</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="operationType: ${operationTypes}">
+            <td th:text="${operationType.name}">
+            <td th:text="${operationType.resource}">
+            <td th:text="статус">
+            <td th:text="действие"><!--            <td><a th:href="@{'/meter-types/delete/' + ${meterType.id}}" th:text="Удалить"/></td>-->
+        </tr>
+        </tbody>
+    </table>
+<!--    <span th:text="${'Всего типов счётчиков: ' + meterTypes.size()}"></span>-->
+    <br>
+<!--    <form th:action="@{/meter-types/add}"-->
+<!--          th:object="${meterType}" method="post" class="form-horizontal">-->
+
+<!--        &lt;!&ndash;        <div style="margin-bottom: 25px" class="input-group">&ndash;&gt;-->
+<!--        &lt;!&ndash;            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>&ndash;&gt;-->
+<!--        &lt;!&ndash;            <input th:field="*{id}" placeholder="id" class="form-control"/>&ndash;&gt;-->
+<!--        &lt;!&ndash;        </div>&ndash;&gt;-->
+
+<!--        <div style="margin-bottom: 25px" class="input-group">-->
+<!--            <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>-->
+<!--            <input th:field="*{name}" placeholder="Введите имя" class="form-control"/>-->
+<!--        </div>-->
+
+<!--        <div style="margin-top: 10px" class="form-group">-->
+<!--            <div class="col-sm-6 controls">-->
+<!--                <button type="submit" class="btn btn-primary">Добавить</button>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </form>-->
+</div>
+</body>
+</html>
