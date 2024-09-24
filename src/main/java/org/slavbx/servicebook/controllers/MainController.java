@@ -1,8 +1,10 @@
 package org.slavbx.servicebook.controllers;
 
+import org.slavbx.servicebook.models.Car;
 import org.slavbx.servicebook.models.Maintenance;
 import org.slavbx.servicebook.models.Operation;
 import org.slavbx.servicebook.models.OperationType;
+import org.slavbx.servicebook.services.CarService;
 import org.slavbx.servicebook.services.MaintenanceService;
 import org.slavbx.servicebook.services.OperationService;
 import org.slavbx.servicebook.services.OperationTypeService;
@@ -25,9 +27,12 @@ public class MainController {
     @Autowired
     MaintenanceService maintenanceService;
 
+    @Autowired
+    CarService carService;
+
     @GetMapping("home")
     public String showHome(Model model) { //Заполнение страницы списками сущностей и её отображение
-        operationTypeService.refreshAllTypeStatus();
+        //operationTypeService.refreshAllTypeStatus();
         OperationType operationType = OperationType.builder().build();
         model.addAttribute("operationType", operationType); //пустая болванка для HTML-страницы
         model.addAttribute("operationTypes", operationTypeService.findAll()); //лист, который в цикле разворачивает thymeleaf
@@ -66,6 +71,9 @@ public class MainController {
         type3.setOperations(List.of(operation3));
 
         maintenance.setOperations(List.of(operation1, operation2, operation3));
+
+        Car car = Car.builder().mileage(85374).model("Toyota Caldina").build();
+        carService.save(car);
 
         return "home";
     }
