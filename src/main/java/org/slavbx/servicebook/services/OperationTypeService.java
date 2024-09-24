@@ -2,6 +2,7 @@ package org.slavbx.servicebook.services;
 
 import lombok.RequiredArgsConstructor;
 import org.apache.logging.log4j.util.PropertySource;
+import org.slavbx.servicebook.models.Car;
 import org.slavbx.servicebook.models.Maintenance;
 import org.slavbx.servicebook.models.Operation;
 import org.slavbx.servicebook.models.OperationType;
@@ -23,7 +24,7 @@ public class OperationTypeService {
     private final OperationService operationService;
 
     @Autowired
-    private final MaintenanceService maintenanceService;
+    private final CarService carService;
 
     public void save(OperationType operationType) {
         operationTypeRepository.save(operationType);
@@ -33,24 +34,17 @@ public class OperationTypeService {
         return operationTypeRepository.findAll();
     }
 
-//    public void refreshAllTypeStatus() {
-//        Integer currentMileage = maintenanceService.findCurrentMileage();
-//        this.findAll().forEach(t ->
-////                operationService.findAll().stream()
-////                        .filter(o1 -> o1.getType().equals(t) && currentMileage < o1.getMaintenance().getMileage() + o1.getType().getResource())
-////                        .findFirst()
-////                        .ifPresent(o2 -> t.setStatus("осталось " + (currentMileage - o2.getMaintenance().getMileage() + o2.getType().getResource()) + "км"))
-//                  operationService.findAll().stream()
-//                          .filter(o1 -> o1.getType().equals(t))
-//                          .sorted((o1, o2) -> o2.getMaintenance().getMileage() - o1.getMaintenance().getMileage())
-//                          .findFirst()
-//                          .ifPresent(o3 -> currentMileage < o3.getMaintenance().getMileage() + o3.getType().getResource() ?
-//
-//
-//                          )
-//
-//        );
-//    }
-
+    public void refreshAllTypeStatus() {
+        Car car = carService.getCar();
+        for(OperationType operationType: this.findAll()) {
+            Operation operation =  operationService.getOperationOfMaxMileageByType(operationType);
+            int deltaMileage = operation.getMaintenance().getMileage() + operationType.getResource() - car.getMileage();
+            if (deltaMileage > 0) {
+                operationType.setStatus("запас " + deltaMileage + " км");
+            } else {
+                operationType.setStatus("превышено " + Math.abs(deltaMileage) + " км");
+            }
+        }
+    }
 
 }

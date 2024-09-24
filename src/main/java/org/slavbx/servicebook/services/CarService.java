@@ -26,4 +26,8 @@ public class CarService {
     public List<Car> findAll(){
         return carRepository.findAll();
     }
+
+    public Car getCar() {
+        return this.findAll().get(0); //Машина всегда одна и существует, её достаём
+    }
 }

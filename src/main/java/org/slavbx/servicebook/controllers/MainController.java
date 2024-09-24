@@ -32,7 +32,7 @@ public class MainController {
 
     @GetMapping("home")
     public String showHome(Model model) { //Заполнение страницы списками сущностей и её отображение
-        //operationTypeService.refreshAllTypeStatus();
+        operationTypeService.refreshAllTypeStatus();
         OperationType operationType = OperationType.builder().build();
         model.addAttribute("operationType", operationType); //пустая болванка для HTML-страницы
         model.addAttribute("operationTypes", operationTypeService.findAll()); //лист, который в цикле разворачивает thymeleaf
@@ -40,6 +40,9 @@ public class MainController {
         Maintenance maintenance = Maintenance.builder().build();
         model.addAttribute("maintenance", maintenance);
         model.addAttribute("maintenances", maintenanceService.findAll());
+
+        Car car = carService.getCar();
+        model.addAttribute("car", car);
         return "home";
     }
 
