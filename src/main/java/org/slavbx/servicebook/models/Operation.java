@@ -25,5 +25,5 @@ public class Operation {
     @JoinColumn(name = "type_id")
     private OperationType type;
 
-    private String Description;
+    private String description;
 }

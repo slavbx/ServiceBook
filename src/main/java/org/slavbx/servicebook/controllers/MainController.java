@@ -1,9 +1,6 @@
 package org.slavbx.servicebook.controllers;
 
-import org.slavbx.servicebook.models.Car;
-import org.slavbx.servicebook.models.Maintenance;
-import org.slavbx.servicebook.models.Operation;
-import org.slavbx.servicebook.models.OperationType;
+import org.slavbx.servicebook.models.*;
 import org.slavbx.servicebook.services.CarService;
 import org.slavbx.servicebook.services.MaintenanceService;
 import org.slavbx.servicebook.services.OperationService;
@@ -32,15 +29,22 @@ public class MainController {
 
     @GetMapping("home")
     public String showHome(Model model) { //Заполнение страницы списками сущностей и её отображение
+
+        //Таблица Текущий статус обслуживания
         operationTypeService.refreshAllTypeStatus();
         OperationType operationType = OperationType.builder().build();
         model.addAttribute("operationType", operationType); //пустая болванка для HTML-страницы
         model.addAttribute("operationTypes", operationTypeService.findAll()); //лист, который в цикле разворачивает thymeleaf
 
-        Maintenance maintenance = Maintenance.builder().build();
-        model.addAttribute("maintenance", maintenance);
-        model.addAttribute("maintenances", maintenanceService.findAll());
+        //Форма Добавления работ по обслуживанию
+        MaintenanceDTO maintenanceDTO = new MaintenanceDTO();
+        model.addAttribute("maintenanceDTO", maintenanceDTO);
 
+        //Таблица История сеансов обслуживания
+        model.addAttribute("maintenances", maintenanceService.findAll());
+        //model.addAttribute("operationTypes", operationTypeService.findAll()); //существует выше
+
+        //Отображение текущего пробега автомобиля
         Car car = carService.getCar();
         model.addAttribute("car", car);
         return "home";
@@ -61,9 +65,9 @@ public class MainController {
         operationTypeService.save(type2);
         operationTypeService.save(type3);
 
-        Operation operation1 = Operation.builder().maintenance(maintenance).type(type1).Description("").build();
-        Operation operation2 = Operation.builder().maintenance(maintenance).type(type2).Description("").build();
-        Operation operation3 = Operation.builder().maintenance(maintenance).type(type3).Description("").build();
+        Operation operation1 = Operation.builder().maintenance(maintenance).type(type1).description("").build();
+        Operation operation2 = Operation.builder().maintenance(maintenance).type(type2).description("").build();
+        Operation operation3 = Operation.builder().maintenance(maintenance).type(type3).description("").build();
 
         operationService.save(operation1);
         operationService.save(operation2);

@@ -47,4 +47,8 @@ public class OperationTypeService {
         }
     }
 
+    public List<OperationType> findAllById(List<Long> ids) {
+        return operationTypeRepository.findAllById(ids);
+    }
+
 }

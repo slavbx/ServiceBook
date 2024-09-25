@@ -1,6 +1,8 @@
 package org.slavbx.servicebook.controllers;
 
+import org.slavbx.servicebook.models.Car;
 import org.slavbx.servicebook.models.Maintenance;
+import org.slavbx.servicebook.models.MaintenanceDTO;
 import org.slavbx.servicebook.services.MaintenanceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,7 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 
-@Controller("/maintenances")
+@Controller
 public class MaintenanceController {
 
     @Autowired
@@ -17,9 +19,10 @@ public class MaintenanceController {
 
     //add и delete
 
-    @PostMapping("/add")
-    public String addMaintenance(@ModelAttribute(value = "maintenance")Maintenance maintenance) {
-        maintenanceService.save(maintenance);
+    @PostMapping("/maintenances/add")
+    public String addMaintenance(@ModelAttribute(value = "maintenanceDTO") MaintenanceDTO maintenanceDTO) {
+        maintenanceService.createMaintenance(maintenanceDTO);
         return "redirect:/home";
     }
+
 }

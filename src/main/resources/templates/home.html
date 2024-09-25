@@ -11,7 +11,7 @@
 
 <div class="row">
     <div class="col-lg-6 col-md-6">
-        <div class="container"><label>Текущий статус обслуживания</label></div>
+        <div class="container"><label style="font-weight: bold">Текущий статус обслуживания</label>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -31,10 +31,11 @@
             </tr>
             </tbody>
         </table>
+        </div>
         <br>
 
         <form th:action="@{/cars}" th:object="${car}" method="post" class="form-horizontal">
-            <div class="container"><label>Текущий пробег автомобиля</label></div>
+            <div class="container"><label style="font-weight: bold">Текущий пробег автомобиля</label>
             <table class="table table-hover">
                 <tbody>
                 <tr>
@@ -48,29 +49,43 @@
                 </tr>
                 </tbody>
             </table>
+            </div>
         </form>
         <br>
 
-        <form th:action="@{/maintenances/add}" th:object="${maintenance}" method="post" class="form-horizontal">
-            <div class="container"><label>Добавление работ по обслуживанию</label></div>
-            <div style="margin-bottom: 25px" class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input th:field="*{mileage}" placeholder="Введите пробег" class="form-control"/>
-            </div>
-            <div style="margin-bottom: 25px" class="input-group">
-                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                <input th:field="*{description}" placeholder="Введите описание" class="form-control"/>
-            </div>
-            <div style="margin-top: 10px" class="form-group">
-                <div class="col-sm-6 controls">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                </div>
+        <form th:action="@{/maintenances/add}" th:object="${maintenanceDTO}" method="post" class="form-horizontal">
+            <div class="container"><label style="font-weight: bold">Добавление работ по обслуживанию</label>
+            <table class="table table-hover">
+                <tbody>
+                <tr>
+                    <td>
+                        <label for="maintenance-date">Дата:</label>
+                        <input type="date" th:field="*{date}" id="maintenance-date"/>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="features">Объекты:</label>
+                        <select id="features" th:field="*{selectedOperationTypeIds}" multiple="multiple">
+                            <option th:each="operationType : ${operationTypes}"
+                                    th:value="${operationType.id}"
+                                    th:text="${operationType.name}"></option>
+                        </select>
+                    </td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td><input th:field="*{mileage}" placeholder="Введите пробег" class="form-control"/></td>
+                    <td><button type="submit" class="btn btn-primary">Добавить</button></td>
+                </tbody>
+            </table>
             </div>
         </form>
-
     </div>
+
     <div class="col-lg-6 col-md-6">
-        <div class="container"><label>История сеансов обслуживания</label></div>
+        <div class="container"><label style="font-weight: bold">История сеансов обслуживания</label>
         <table class="table table-hover">
             <thead>
             <tr>
@@ -93,6 +108,7 @@
             </tr>
             </tbody>
         </table>
+        </div>
         <br>
     </div>
 </div>
