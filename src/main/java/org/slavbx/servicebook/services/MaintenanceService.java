@@ -1,14 +1,12 @@
 package org.slavbx.servicebook.services;
 
 
-import com.sun.tools.javac.Main;
 import lombok.RequiredArgsConstructor;
 import org.slavbx.servicebook.models.Maintenance;
 import org.slavbx.servicebook.models.MaintenanceDTO;
 import org.slavbx.servicebook.models.Operation;
 import org.slavbx.servicebook.models.OperationType;
 import org.slavbx.servicebook.repositories.MaintenanceRepository;
-import org.slavbx.servicebook.repositories.OperationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,24 +15,26 @@ import java.util.Comparator;
 import java.util.List;
 
 @Service
-@RequiredArgsConstructor //Аннотация autowired не потребуется при создании конструктора для одного поля final
 public class MaintenanceService {
-    @Autowired
     private final MaintenanceRepository maintenanceRepository;
-    @Autowired
     private final OperationTypeService operationTypeService;
+
+    @Autowired
+    public MaintenanceService(MaintenanceRepository maintenanceRepository, OperationTypeService operationTypeService) {
+        this.maintenanceRepository = maintenanceRepository;
+        this.operationTypeService = operationTypeService;
+    }
 
     public void save(Maintenance maintenance) {
         maintenanceRepository.save(maintenance);
     }
 
     public List<Maintenance> findAll(){
-        return maintenanceRepository.findAll();
+        return maintenanceRepository.findAll().stream().sorted(Comparator.comparing(Maintenance::getDate).reversed()).toList();
     }
 
-    public Integer findCurrentMileage() {
-        //Найти maintenance с максимальным пробегом и вернуть его
-        return this.findAll().stream().max(Comparator.comparing(Maintenance::getMileage)).map(Maintenance::getMileage).orElse(0);
+    public void deleteById(Long id) {
+        maintenanceRepository.deleteById(id);
     }
 
     public void createMaintenance(MaintenanceDTO maintenanceDTO) {

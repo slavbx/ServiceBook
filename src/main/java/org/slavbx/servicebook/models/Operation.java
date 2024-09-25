@@ -21,7 +21,7 @@ public class Operation {
     @JoinColumn(name = "maintenance_id")
     private Maintenance maintenance;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {})
     @JoinColumn(name = "type_id")
     private OperationType type;
 
