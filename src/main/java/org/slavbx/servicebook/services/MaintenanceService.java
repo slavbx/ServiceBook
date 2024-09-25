@@ -8,6 +8,9 @@ import org.slavbx.servicebook.models.Operation;
 import org.slavbx.servicebook.models.OperationType;
 import org.slavbx.servicebook.repositories.MaintenanceRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,6 +34,11 @@ public class MaintenanceService {
 
     public List<Maintenance> findAll(){
         return maintenanceRepository.findAll().stream().sorted(Comparator.comparing(Maintenance::getDate).reversed()).toList();
+    }
+
+    public Page<Maintenance> findAll(int page, int size){
+        Pageable pageable = PageRequest.of(page, size);
+        return maintenanceRepository.findAll(pageable);
     }
 
     public void deleteById(Long id) {

@@ -7,20 +7,22 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/cars")
 public class CarController {
     @Autowired
     CarService carService;
 
-//    @GetMapping
-//    public String showMileage(Model model) {
-//        Car car = carService.getCar();
-//        model.addAttribute("car", car);
-//        return "home";
-//    }
+    @GetMapping("/mileage")
+    public String showMileage(Model model) {
+        Car car = carService.getCar();
+        model.addAttribute("car", car);
+        return "redirect:/home";
+    }
 
-    @PostMapping("/cars")
+    @PostMapping("/mileage/set")
     public String setMileage(Car carBlank) {
         Car car = carService.getCar();
         car.setMileage(carBlank.getMileage());
