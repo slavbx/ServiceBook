@@ -11,8 +11,8 @@
 <div class="row">
     <div class="col-lg-6 col-md-6">
         <div class="container"><label style="font-weight: bold">Текущий статус обслуживания</label>
-        <table class="table table-hover">
-            <thead>
+        <table class="table table-hover table-sm table-bordered">
+            <thead class="thead-light">
             <tr>
                 <th>Объект обслуживания</th>
                 <th>Период</th>
@@ -34,15 +34,14 @@
 
         <form th:action="@{/cars/mileage/set}" th:object="${car}" method="post" class="form-horizontal">
             <div class="container"><label style="font-weight: bold">Текущий пробег автомобиля</label>
-            <table class="table table-hover">
+            <table class="table table-hover table-sm table-bordered">
                 <tbody>
                 <tr>
                     <td>
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
                         <input th:field="*{mileage}" placeholder="Введите пробег" class="form-control"/>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-primary">Изменить</button>
+                        <div class="float-right"><button type="submit" class="btn btn-primary">Изменить</button></div>
                     </td>
                 </tr>
                 </tbody>
@@ -53,7 +52,7 @@
 
         <form th:action="@{/maintenance/add}" th:object="${maintenanceDTO}" method="post" class="form-horizontal">
             <div class="container"><label style="font-weight: bold">Добавление работ по обслуживанию</label>
-            <table class="table table-hover">
+            <table class="table table-hover table-sm table-bordered">
                 <tbody>
                 <tr>
                     <td>
@@ -75,7 +74,10 @@
                 </tr>
                 <tr>
                     <td><input th:field="*{mileage}" placeholder="Введите пробег" class="form-control"/></td>
-                    <td><button type="submit" class="btn btn-primary">Добавить</button></td>
+                    <td>
+                        <div class="float-right"><button type="submit" class="btn btn-primary">Добавить</button></div>
+                    </td>
+                </tr>
                 </tbody>
             </table>
             </div>
@@ -83,9 +85,9 @@
     </div>
 
     <div class="col-lg-6 col-md-6">
-        <div class="container"><label style="font-weight: bold">История сеансов обслуживания</label>
-        <table class="table table-hover">
-            <thead>
+        <div class="container"><label style="font-weight: bold">История работ по обслуживанию</label>
+        <table class="table table-hover table-sm table-bordered">
+            <thead class="thead-light">
             <tr>
                 <th>Дата</th>
                 <th>Пробег</th>
@@ -93,18 +95,6 @@
                 <th>Действие</th>
             </tr>
             </thead>
-<!--            <tbody>-->
-<!--            <tr th:each="maintenance: ${maintenances}">-->
-<!--                <td th:text="${maintenance.date}">-->
-<!--                <td th:text="${maintenance.mileage}">-->
-<!--                <td>-->
-<!--                    <span th:each="operation: ${maintenance.operations}">-->
-<!--                        <span th:text="${operation.description} + '. '"></span>-->
-<!--                    </span>-->
-<!--                </td>-->
-<!--                <td><a th:href="@{'/maintenance/delete/' + ${maintenance.id}}" th:text="Удалить"/></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
             <tbody>
                 <tr th:each="maintenance: ${maintenancePage.content}">
                     <td th:text="${maintenance.date}">

@@ -5,7 +5,6 @@ import org.slavbx.servicebook.services.CarService;
 import org.slavbx.servicebook.services.MaintenanceService;
 import org.slavbx.servicebook.services.OperationService;
 import org.slavbx.servicebook.services.OperationTypeService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -43,8 +42,7 @@ public class MainController {
         MaintenanceDTO maintenanceDTO = new MaintenanceDTO();
         model.addAttribute("maintenanceDTO", maintenanceDTO);
 
-        //Таблица История сеансов обслуживания
-        //model.addAttribute("maintenances", maintenanceService.findAll());
+        //Таблица История работ по обслуживанию
         Page<Maintenance> maintenancePage = maintenanceService.findAll(page, size);
         model.addAttribute("maintenancePage", maintenancePage);
 
@@ -88,9 +86,9 @@ public class MainController {
                 .date(LocalDate.parse("2023-10-15")).build();
         maintenanceService.save(maintenance);
 
-        OperationType type1 = OperationType.builder().name("Замена масла в двигателе").resource(10000).status("просрочено").build();
-        OperationType type2 = OperationType.builder().name("Замена масла в АКПП").resource(80000).status("просрочено").build();
-        OperationType type3 = OperationType.builder().name("Замена масла воздушного фильтра").resource(10000).status("просрочено").build();
+        OperationType type1 = OperationType.builder().name("Моторное масло").resource(10000).status("запас км").build();
+        OperationType type2 = OperationType.builder().name("Масляный фильтр").resource(10000).status("запас км").build();
+        OperationType type3 = OperationType.builder().name("Свечи зажигания").resource(40000).status("запас км").build();
 
         operationTypeService.save(type1);
         operationTypeService.save(type2);
@@ -110,9 +108,8 @@ public class MainController {
 
         maintenance.setOperations(List.of(operation1, operation2, operation3));
 
-        Car car = Car.builder().mileage(85374).model("Toyota Caldina").build();
+        Car car = Car.builder().mileage(85374).model("Toyota").build();
         carService.save(car);
-
         return "home";
     }
 }

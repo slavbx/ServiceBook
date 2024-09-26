@@ -10,9 +10,9 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@RequiredArgsConstructor //Аннотация autowired не потребуется при создании конструктора для одного поля final
+@RequiredArgsConstructor
 public class OperationService {
-    private final OperationRepository operationRepository;
+    private final OperationRepository operationRepository; //Autowired не потребуется для одного поля final
 
     public void save(Operation operation) {
         operationRepository.save(operation);
@@ -22,10 +22,9 @@ public class OperationService {
         return operationRepository.findAll();
     }
 
-    public Operation getOperationOfMaxMileageByType(OperationType operationType) {
+    public Optional<Operation> getOperationOfMaxMileageByType(OperationType operationType) {
         return this.findAll().stream()
                 .filter(op -> op.getType().equals(operationType))
-                .max((o1, o2) -> o2.getMaintenance().getMileage() - o1.getMaintenance().getMileage())
-                .orElse(null);
+                .max((o1, o2) -> o2.getMaintenance().getMileage() - o1.getMaintenance().getMileage());
     }
 }
