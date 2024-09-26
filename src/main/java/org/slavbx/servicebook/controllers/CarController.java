@@ -15,19 +15,19 @@ public class CarController {
     @Autowired
     CarService carService;
 
-    @GetMapping("/mileage")
-    public String showMileage(Model model) {
-        Car car = carService.getCar();
-        model.addAttribute("car", car);
-        return "redirect:/home";
-    }
-
-    @PostMapping("/mileage/set")
-    public String setMileage(Car carBlank) {
-        Car car = carService.getCar();
-        car.setMileage(carBlank.getMileage());
-        carService.save(car);
-        return "redirect:/home";
-    }
+//    @GetMapping("/mileage")
+//    public String showMileage(Model model) {
+//        Car car = carService.getCar();
+//        model.addAttribute("car", car);
+//        return "redirect:/home";
+//    }
+//
+//    @PostMapping("/mileage/set")
+//    public String setMileage(Car carBlank) {
+//        Car car = carService.getCar();
+//        car.setMileage(carBlank.getMileage());
+//        carService.save(car);
+//        return "redirect:/home";
+//    }
 
 }

@@ -16,16 +16,16 @@ public class MaintenanceController {
         this.maintenanceService = maintenanceService;
     }
 
-    @PostMapping("/maintenance/add")
-    public String addMaintenance(@ModelAttribute(value = "maintenanceDTO") MaintenanceDTO maintenanceDTO) {
-        maintenanceService.createMaintenance(maintenanceDTO);
-        return "redirect:/home";
-    }
-
-    @GetMapping("/maintenance/delete/{id}")
-    public String deleteMaintenance(@PathVariable(value = "id") Long id) {
-        maintenanceService.deleteById(id);
-        return "redirect:/home";
-    }
+//    @PostMapping("/maintenance/add")
+//    public String addMaintenance(@ModelAttribute(value = "maintenanceDTO") MaintenanceDTO maintenanceDTO) {
+//        maintenanceService.createMaintenance(maintenanceDTO);
+//        return "redirect:/home";
+//    }
+//
+//    @GetMapping("/maintenance/delete/{id}")
+//    public String deleteMaintenance(@PathVariable(value = "id") Long id) {
+//        maintenanceService.deleteById(id);
+//        return "redirect:/home";
+//    }
 
 }

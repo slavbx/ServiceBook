@@ -93,19 +93,40 @@
                 <th>Действие</th>
             </tr>
             </thead>
+<!--            <tbody>-->
+<!--            <tr th:each="maintenance: ${maintenances}">-->
+<!--                <td th:text="${maintenance.date}">-->
+<!--                <td th:text="${maintenance.mileage}">-->
+<!--                <td>-->
+<!--                    <span th:each="operation: ${maintenance.operations}">-->
+<!--                        <span th:text="${operation.description} + '. '"></span>-->
+<!--                    </span>-->
+<!--                </td>-->
+<!--                <td><a th:href="@{'/maintenance/delete/' + ${maintenance.id}}" th:text="Удалить"/></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
             <tbody>
-            <tr th:each="maintenance: ${maintenances}">
-                <td th:text="${maintenance.date}">
-                <td th:text="${maintenance.mileage}">
-                <td>
-                    <span th:each="operation: ${maintenance.operations}">
-                        <span th:text="${operation.description} + '. '"></span>
-                    </span>
-                </td>
-                <td><a th:href="@{'/maintenance/delete/' + ${maintenance.id}}" th:text="Удалить"/></td>
-            </tr>
+                <tr th:each="maintenance: ${maintenancePage.content}">
+                    <td th:text="${maintenance.date}">
+                    <td th:text="${maintenance.mileage}">
+                    <td>
+                        <span th:each="operation: ${maintenance.operations}">
+                            <span th:text="${operation.description} + '. '"></span>
+                        </span>
+                    </td>
+                    <td><a th:href="@{'/maintenance/delete/' + ${maintenance.id}}" th:text="Удалить"/></td>
+                </tr>
             </tbody>
         </table>
+            <div>
+                <span>Страница: <span th:text="${maintenancePage.number + 1}"></span></span>
+                <span>из <span th:text="${maintenancePage.totalPages}"></span></span>
+                <span>Всего: <span th:text="${maintenancePage.totalElements}"></span></span>
+            </div>
+            <div>
+                <a th:if="${maintenancePage.hasPrevious()}" th:href="@{/maintenances(page=${maintenancePage.number - 1}, size=${maintenancePage.size})}">Предыдущая</a>
+                <a th:if="${maintenancePage.hasNext()}" th:href="@{/maintenances(page=${maintenancePage.number + 1}, size=${maintenancePage.size})}">Следующая</a>
+            </div>
         </div>
         <br>
     </div>

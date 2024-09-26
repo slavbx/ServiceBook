@@ -6,29 +6,32 @@ import org.slavbx.servicebook.services.MaintenanceService;
 import org.slavbx.servicebook.services.OperationService;
 import org.slavbx.servicebook.services.OperationTypeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Controller
 public class MainController {
-    @Autowired
-    OperationTypeService operationTypeService;
+    private final OperationTypeService operationTypeService;
+    private final OperationService operationService;
+    private final MaintenanceService maintenanceService;
+    private final CarService carService;
 
-    @Autowired
-    OperationService operationService;
-
-    @Autowired
-    MaintenanceService maintenanceService;
-
-    @Autowired
-    CarService carService;
+    public MainController(OperationTypeService operationTypeService, OperationService operationService,
+                          MaintenanceService maintenanceService, CarService carService) {
+        this.operationTypeService = operationTypeService;
+        this.operationService = operationService;
+        this.maintenanceService = maintenanceService;
+        this.carService = carService;
+    }
 
     @GetMapping("home")
-    public String showHome(Model model) { //Заполнение страницы списками сущностей и её отображение
+    public String showHome(@RequestParam(defaultValue = "0") int page,
+                           @RequestParam(defaultValue = "10") int size, Model model) { //Заполнение страницы списками сущностей и её отображение
 
         //Таблица Текущий статус обслуживания
         operationTypeService.refreshAllTypeStatus();
@@ -41,13 +44,41 @@ public class MainController {
         model.addAttribute("maintenanceDTO", maintenanceDTO);
 
         //Таблица История сеансов обслуживания
-        model.addAttribute("maintenances", maintenanceService.findAll());
-        //model.addAttribute("operationTypes", operationTypeService.findAll()); //существует выше
+        //model.addAttribute("maintenances", maintenanceService.findAll());
+        Page<Maintenance> maintenancePage = maintenanceService.findAll(page, size);
+        model.addAttribute("maintenancePage", maintenancePage);
 
         //Отображение текущего пробега автомобиля
         Car car = carService.getCar();
         model.addAttribute("car", car);
         return "home";
+    }
+
+    @GetMapping("/cars/mileage")
+    public String showMileage(Model model) {
+        Car car = carService.getCar();
+        model.addAttribute("car", car);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/cars/mileage/set")
+    public String setMileage(Car carBlank) {
+        Car car = carService.getCar();
+        car.setMileage(carBlank.getMileage());
+        carService.save(car);
+        return "redirect:/home";
+    }
+
+    @PostMapping("/maintenance/add")
+    public String addMaintenance(@ModelAttribute(value = "maintenanceDTO") MaintenanceDTO maintenanceDTO) {
+        maintenanceService.createMaintenance(maintenanceDTO);
+        return "redirect:/home";
+    }
+
+    @GetMapping("/maintenance/delete/{id}")
+    public String deleteMaintenance(@PathVariable(value = "id") Long id) {
+        maintenanceService.deleteById(id);
+        return "redirect:/home";
     }
 
     @GetMapping("/init") //Не используется
