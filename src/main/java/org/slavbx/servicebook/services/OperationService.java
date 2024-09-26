@@ -6,6 +6,7 @@ import org.slavbx.servicebook.models.OperationType;
 import org.slavbx.servicebook.repositories.OperationRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,6 +26,6 @@ public class OperationService {
     public Optional<Operation> getOperationOfMaxMileageByType(OperationType operationType) {
         return this.findAll().stream()
                 .filter(op -> op.getType().equals(operationType))
-                .max((o1, o2) -> o2.getMaintenance().getMileage() - o1.getMaintenance().getMileage());
+                .max(Comparator.comparingInt(o -> o.getMaintenance().getMileage()));
     }
 }

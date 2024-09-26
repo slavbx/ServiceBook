@@ -1,6 +1,6 @@
 databaseChangeLog:
 - changeSet:
-    id: 1727178856260-1
+    id: 1727367354917-1
     author: Administrator (generated)
     changes:
     - createTable:
@@ -21,7 +21,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: cars
 - changeSet:
-    id: 1727178856260-2
+    id: 1727367354917-2
     author: Administrator (generated)
     changes:
     - createTable:
@@ -45,7 +45,7 @@ databaseChangeLog:
             type: INTEGER
         tableName: maintenances
 - changeSet:
-    id: 1727178856260-3
+    id: 1727367354917-3
     author: Administrator (generated)
     changes:
     - createTable:
@@ -69,7 +69,7 @@ databaseChangeLog:
             type: VARCHAR(255)
         tableName: operation_types
 - changeSet:
-    id: 1727178856260-4
+    id: 1727367354917-4
     author: Administrator (generated)
     changes:
     - createTable:
@@ -93,7 +93,7 @@ databaseChangeLog:
             type: BIGINT
         tableName: operations
 - changeSet:
-    id: 1727178856260-5
+    id: 1727367354917-5
     author: Administrator (generated)
     changes:
     - loadData:
@@ -117,7 +117,7 @@ databaseChangeLog:
         separator: ','
         tableName: cars
 - changeSet:
-    id: 1727178856260-6
+    id: 1727367354917-6
     author: Administrator (generated)
     changes:
     - loadData:
@@ -129,7 +129,7 @@ databaseChangeLog:
         - column:
             header: description
             name: description
-            type: STRING
+            type: skip
         - column:
             header: date
             name: date
@@ -145,7 +145,7 @@ databaseChangeLog:
         separator: ','
         tableName: maintenances
 - changeSet:
-    id: 1727178856260-7
+    id: 1727367354917-7
     author: Administrator (generated)
     changes:
     - loadData:
@@ -173,7 +173,7 @@ databaseChangeLog:
         separator: ','
         tableName: operation_types
 - changeSet:
-    id: 1727178856260-8
+    id: 1727367354917-8
     author: Administrator (generated)
     changes:
     - loadData:
@@ -201,7 +201,7 @@ databaseChangeLog:
         separator: ','
         tableName: operations
 - changeSet:
-    id: 1727178856260-9
+    id: 1727367354917-9
     author: Administrator (generated)
     changes:
     - addForeignKeyConstraint:
@@ -216,7 +216,7 @@ databaseChangeLog:
         referencedTableName: operation_types
         validate: true
 - changeSet:
-    id: 1727178856260-10
+    id: 1727367354917-10
     author: Administrator (generated)
     changes:
     - addForeignKeyConstraint:
