@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
+
 @Controller
 public class MainController {
     private final OperationTypeService operationTypeService;
@@ -32,6 +34,8 @@ public class MainController {
 
         //Форма Добавления работ по обслуживанию
         MaintenanceDTO maintenanceDTO = new MaintenanceDTO();
+        maintenanceDTO.setDate(LocalDate.now()); //Инициализация пользовательского ввода
+        maintenanceDTO.setMileage(carService.getCar().getMileage()); //Инициализация пользовательского ввода
         model.addAttribute("maintenanceDTO", maintenanceDTO);
 
         //Таблица История работ по обслуживанию

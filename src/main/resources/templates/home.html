@@ -114,8 +114,8 @@
                 <span>Всего: <span th:text="${maintenancePage.totalElements}"></span></span>
             </div>
             <div>
-                <a th:if="${maintenancePage.hasPrevious()}" th:href="@{/maintenances(page=${maintenancePage.number - 1}, size=${maintenancePage.size})}">Предыдущая</a>
-                <a th:if="${maintenancePage.hasNext()}" th:href="@{/maintenances(page=${maintenancePage.number + 1}, size=${maintenancePage.size})}">Следующая</a>
+                <a th:if="${maintenancePage.hasPrevious()}" th:href="@{/home(page=${maintenancePage.number - 1}, size=${maintenancePage.size})}">Предыдущая</a>
+                <a th:if="${maintenancePage.hasNext()}" th:href="@{/home(page=${maintenancePage.number + 1}, size=${maintenancePage.size})}">Следующая</a>
             </div>
         </div>
         <br>
