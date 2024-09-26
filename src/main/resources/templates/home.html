@@ -93,18 +93,6 @@
                 <th>Действие</th>
             </tr>
             </thead>
-<!--            <tbody>-->
-<!--            <tr th:each="maintenance: ${maintenances}">-->
-<!--                <td th:text="${maintenance.date}">-->
-<!--                <td th:text="${maintenance.mileage}">-->
-<!--                <td>-->
-<!--                    <span th:each="operation: ${maintenance.operations}">-->
-<!--                        <span th:text="${operation.description} + '. '"></span>-->
-<!--                    </span>-->
-<!--                </td>-->
-<!--                <td><a th:href="@{'/maintenance/delete/' + ${maintenance.id}}" th:text="Удалить"/></td>-->
-<!--            </tr>-->
-<!--            </tbody>-->
             <tbody>
                 <tr th:each="maintenance: ${maintenancePage.content}">
                     <td th:text="${maintenance.date}">
