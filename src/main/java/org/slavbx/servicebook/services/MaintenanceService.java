@@ -14,9 +14,11 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
+/**
+ * Сервис для работы с сущностью Maintenance
+ */
 @Service
 public class MaintenanceService {
     private final MaintenanceRepository maintenanceRepository;

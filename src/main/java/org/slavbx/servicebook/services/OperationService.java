@@ -10,6 +10,9 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * Сервис для работы с сущностью Operation
+ */
 @Service
 @RequiredArgsConstructor
 public class OperationService {

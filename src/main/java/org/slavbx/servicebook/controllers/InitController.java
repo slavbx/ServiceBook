@@ -26,7 +26,11 @@ public class InitController {
         this.carService = carService;
     }
 
-    @GetMapping("/init") //Не используется
+    /**
+     * Метод использовался для быстрой инициализации БД на начальном этапе. Сейчас неактуально
+     * @return стартовую страницу
+     */
+    @GetMapping("/init") //Использовал дя быстрой инициализации БД в начале разработки. Сейчас неактуально
     public String init() {
         Maintenance maintenance = Maintenance.builder()
                 .mileage(185000).Description("Большое обслуживание")

@@ -11,7 +11,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-
+/**
+ * Сервис для работы с сущностью OperationType
+ */
 @Service
 @RequiredArgsConstructor
 public class OperationTypeService {

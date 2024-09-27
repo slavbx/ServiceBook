@@ -6,6 +6,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Сущность отдельной операции, выполненной в ходе работы по обслуживанию.
+ * Приобретает тип из заранее заготовленной таблицы типов операций
+ * Знает, какой maintenance принадлежит
+ */
 @Data
 @Entity
 @Builder

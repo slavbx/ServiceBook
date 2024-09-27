@@ -6,11 +6,10 @@ import lombok.Setter;
 import java.time.LocalDate;
 import java.util.List;
 
-/*
-     DTO для того, чтобы при создании из view новой maintenance,
-     у нее добавились operations с типами которые я бы выбрал в выпадающем списке
-  */
-
+/**
+ * DTO сущности maintenance, добавлен для того, чтобы при создании из view новой maintenance,
+ * у нее добавились operations с типами которые пользователь выберет в выпадающем списке
+ */
 @Getter
 @Setter
 public class MaintenanceDTO {

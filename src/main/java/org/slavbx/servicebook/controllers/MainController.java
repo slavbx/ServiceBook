@@ -23,10 +23,16 @@ public class MainController {
         this.carService = carService;
     }
 
-    @GetMapping("home")
+    /**
+     * Метод отображает всё содержимое страницы
+     * @param page номер текущей страницы Истории работ по обслуживанию
+     * @param size размер страницы Истории работ по обслуживанию
+     * @return стартовую страницу
+    */
+    @GetMapping("/home")
     public String showHome(@RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "10") int size, Model model) {
-        //Таблица Текущий статус обслуживания
+        //Отображение таблицы Текущий статус обслуживания
         operationTypeService.refreshAllTypeStatus();
         OperationType operationType = OperationType.builder().build();
         model.addAttribute("operationType", operationType); //пустая болванка для HTML-страницы
@@ -38,7 +44,7 @@ public class MainController {
         maintenanceDTO.setMileage(carService.getCar().getMileage()); //Инициализация пользовательского ввода
         model.addAttribute("maintenanceDTO", maintenanceDTO);
 
-        //Таблица История работ по обслуживанию
+        //Отображение таблицы История работ по обслуживанию
         Page<Maintenance> maintenancePage = maintenanceService.findAll(page, size);
         model.addAttribute("maintenancePage", maintenancePage);
 
@@ -48,13 +54,11 @@ public class MainController {
         return "home";
     }
 
-    @GetMapping("/cars/mileage")
-    public String showMileage(Model model) {
-        Car car = carService.getCar();
-        model.addAttribute("car", car);
-        return "redirect:/home";
-    }
-
+    /**
+     * Метод для установки нового значения текущего пробега нашего автомобиля
+     * @param carBlank пустая заготовка для передачи пробега из view в сервис
+     * @return перенаправляет на обновлённую страницу
+     */
     @PostMapping("/cars/mileage/set")
     public String setMileage(Car carBlank) {
         Car car = carService.getCar();
@@ -63,12 +67,22 @@ public class MainController {
         return "redirect:/home";
     }
 
+    /**
+     * Метод создаёт новую работу по обслуживанию по введенным на форме данным
+     * @param maintenanceDTO для возможности создания maintenance по выбранным типам operations на форме
+     * @return перенаправляет на обновлённую страницу
+     */
     @PostMapping("/maintenance/add")
     public String addMaintenance(@ModelAttribute(value = "maintenanceDTO") MaintenanceDTO maintenanceDTO) {
         maintenanceService.createMaintenance(maintenanceDTO);
         return "redirect:/home";
     }
 
+    /**
+     * Метод позволяет удалить работу по обслуживанию из истории работ
+     * @param id идентификатор записи текущей maintenance
+     * @return перенаправляет на обновлённую страницу
+     */
     @GetMapping("/maintenance/delete/{id}")
     public String deleteMaintenance(@PathVariable(value = "id") Long id) {
         maintenanceService.deleteById(id);

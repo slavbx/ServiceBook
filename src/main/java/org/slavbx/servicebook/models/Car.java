@@ -6,7 +6,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
+/**
+ * Сущность единственной машины в проекте. Создана для хранения текущего пробега *
+ */
 @Data
 @Entity
 @Builder
