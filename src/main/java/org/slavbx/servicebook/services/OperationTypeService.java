@@ -1,18 +1,16 @@
 package org.slavbx.servicebook.services;
 
 import lombok.RequiredArgsConstructor;
-import org.apache.logging.log4j.util.PropertySource;
 import org.slavbx.servicebook.models.Car;
-import org.slavbx.servicebook.models.Maintenance;
 import org.slavbx.servicebook.models.Operation;
 import org.slavbx.servicebook.models.OperationType;
 import org.slavbx.servicebook.repositories.OperationTypeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Comparator;
 import java.util.List;
-import java.util.function.Predicate;
+import java.util.Optional;
+
 
 @Service
 @RequiredArgsConstructor
@@ -37,12 +35,17 @@ public class OperationTypeService {
     public void refreshAllTypeStatus() {
         Car car = carService.getCar();
         for(OperationType operationType: this.findAll()) {
-            Operation operation =  operationService.getOperationOfMaxMileageByType(operationType);
-            int deltaMileage = operation.getMaintenance().getMileage() + operationType.getResource() - car.getMileage();
-            if (deltaMileage > 0) {
-                operationType.setStatus("запас " + deltaMileage + " км");
+            Optional<Operation> optionalOperation = operationService.getOperationOfMaxMileageByType(operationType);
+            int deltaMileage;
+            if (optionalOperation.isPresent()) {
+                deltaMileage = optionalOperation.get().getMaintenance().getMileage() + operationType.getResource() - car.getMileage();
             } else {
-                operationType.setStatus("превышено " + Math.abs(deltaMileage) + " км");
+                deltaMileage = operationType.getResource() - car.getMileage();
+            }
+            if (deltaMileage > 0) {
+                operationType.setStatus("запас " + deltaMileage + "км");
+            } else {
+                operationType.setStatus("превышено " + Math.abs(deltaMileage) + "км");
             }
         }
     }

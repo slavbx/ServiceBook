@@ -1,7 +1,6 @@
 package org.slavbx.servicebook.services;
 
 
-import lombok.RequiredArgsConstructor;
 import org.slavbx.servicebook.models.Maintenance;
 import org.slavbx.servicebook.models.MaintenanceDTO;
 import org.slavbx.servicebook.models.Operation;
@@ -11,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -32,12 +32,13 @@ public class MaintenanceService {
         maintenanceRepository.save(maintenance);
     }
 
-    public List<Maintenance> findAll(){
-        return maintenanceRepository.findAll().stream().sorted(Comparator.comparing(Maintenance::getDate).reversed()).toList();
-    }
+//    public List<Maintenance> findAll(){ //Не используется
+//        return maintenanceRepository.findAll().stream().sorted(Comparator.comparing(Maintenance::getDate).reversed()).toList();
+//    }
 
     public Page<Maintenance> findAll(int page, int size){
-        Pageable pageable = PageRequest.of(page, size);
+        Sort sort = Sort.by(Sort.Direction.DESC, "date");
+        Pageable pageable = PageRequest.of(page, size, sort);
         return maintenanceRepository.findAll(pageable);
     }
 
@@ -60,7 +61,7 @@ public class MaintenanceService {
                     .description(operationType.getName())
                     .build());
         }
-        maintenance.setOperations(operations);
+        maintenance.setOperations(operations); //Здесь добавили список operations
         maintenanceRepository.save(maintenance);
     }
 }

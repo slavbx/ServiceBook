@@ -22,7 +22,6 @@ public class Maintenance {
 
     @OneToMany(mappedBy = "maintenance", cascade = CascadeType.ALL)
     private List<Operation> operations;
-
     private Integer mileage;
     private LocalDate date;
     private String Description;
