@@ -5,5 +5,5 @@
 ### Информация  
 Версия Java: 17  
 Версия Maven: 4.0.0  
-  
-![ServiceBook_small](https://github.com/user-attachments/assets/12a97aa9-663e-4dd9-92ab-e2063b2fd98e)
+
+  ![ServiceBook](https://github.com/user-attachments/assets/69f98897-aeb6-453d-9866-da02db2bbb41)
